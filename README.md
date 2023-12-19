@@ -1,6 +1,6 @@
-### densr R package
+# densr R package
 
-# Written by Rachel McInerney
+### Written by Rachel McInerney
 
 ## Description
 
