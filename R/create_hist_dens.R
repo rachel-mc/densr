@@ -25,7 +25,7 @@ create_hist_dens <- function(x,
                       type = c("gaussian", "kde", "fp"),
                       ...) {
   type <- match.arg(type)
-  h <- hist(x, plot = FALSE, ...) # don't want to return the histogram yet
+  h <- graphics::hist(x, plot = FALSE, ...) # don't want to return the histogram yet
   d <- switch(type,
               gaussian = stats::dnorm(x, mean(x), sd(x), ...),
               kde = stats::density(x, ...),

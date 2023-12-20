@@ -10,6 +10,7 @@ plot.hist_dens <- function(x, ...) {
   type <- x$type
 
   plot(h, freq = FALSE) # for density histogram
+  # object of class histogram is plotted by plot.histogram
 
   switch(type,
          gaussian = curve(stats::dnorm(x, mean(x), sd(x), ...), add = TRUE, ...),

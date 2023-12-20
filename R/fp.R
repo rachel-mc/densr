@@ -6,7 +6,7 @@
 # Estimate the density at locations excluding midpoints by linearly interpolating between adjacent bar heights
 
 fp <- function(x, ...) {
-  h <- hist(x, freq = FALSE) # density histogram
+  h <- graphics::hist(x, freq = FALSE) # density histogram
   vx <- h$mids
   vy <- h$density
   gapx <- diff(vx)[1]
