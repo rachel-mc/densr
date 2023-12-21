@@ -1,15 +1,17 @@
 Package: densr
 Type: Package
+Date: 2023-12-21
 Title: Overlay densities to histograms
 Version: 0.1.0
 Authors@R: c(person("Rachel", "McInerney", email = "rachel.mcinerney.2021@mumail.ie", role = c("aut", "cre")),
-  person("Conor", "Gargan", email = "conor.thompsongargan.2020@mumail.ie", role = c("aut", "cre")),
-  person("Osi", "Ukachukwu", email = "osi.ukachukwu.2018@mumail.ie", role = c("aut", "cre")))
-Maintainer: Rachel McInerney (contact details above)
+  person("Conor", "Gargan", email = "conor.thompsongargan.2020@mumail.ie", role = c("aut")),
+  person("Osi", "Ukachukwu", email = "osi.ukachukwu.2018@mumail.ie", role = c("aut")))
 Description: Plots a histogram of some specified existing data in R and overlays a type of parametric, nonparametric or continuous density estimation to it.  
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 4.3.0)
 BugReports: https://github.com/rachel-mc/densr
-Imports: All packages used throughout this code are attached base packages that are distributed in R by default. 
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

@@ -37,3 +37,5 @@ create_hist_dens <- function(x,
 
 # Quick check
 create_hist_dens(mtcars$mpg)
+
+# the data 'x' must be numeric
