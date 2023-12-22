@@ -1,11 +1,13 @@
-# Function 1: Frequency Polygon (abbreviation fp)
+# Function 1: Frequency Polygon
+
+# Calculates the coordinates to plot the frequency polygon density estimate
 
 # Adapt code from the notes into a function
 # Pull out components of histogram object
 
 # Estimate the density at locations excluding midpoints by linearly interpolating between adjacent bar heights
 
-fp <- function(x, ...) {
+frequency_polygon <- function(x, ...) {
   h <- graphics::hist(x, freq = FALSE) # density histogram
   vx <- h$mids
   vy <- h$density
@@ -21,4 +23,6 @@ fp <- function(x, ...) {
 str(hist(mtcars$mpg)) # has midpoints and bar height in list
 
 # Pass same data through all 3 functions as a quick check
-fp(mtcars$mpg)
+frequency_polygon(mtcars$mpg)
+
+# Currently, all packages used throughout this code are attached base packages that are distributed in R by default
