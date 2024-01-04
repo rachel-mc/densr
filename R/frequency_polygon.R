@@ -40,11 +40,3 @@ frequency_polygon <- function(x, ...) {
   result <- list(vx = vx, vy = vy)
   return(result)
 }
-
-# View contents
-str(hist(mtcars$mpg)) # has midpoints and bar height in list
-
-# Pass same data through all 3 functions as a quick check
-frequency_polygon(mtcars$mpg)
-
-# Currently, all packages used throughout this code are attached base packages that are distributed in R by default
