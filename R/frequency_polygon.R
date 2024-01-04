@@ -7,6 +7,37 @@
 
 # Estimate the density at locations excluding midpoints by linearly interpolating between adjacent bar heights
 
+#' Frequency Polygon
+#'
+#' Calculates the coordinates to plot the frequency polygon density estimate.
+#' This function adapts code from the notes to create a frequency polygon by
+#' extracting components of a density histogram object and estimating density
+#' at locations excluding midpoints.
+#'
+#'
+#' @param x A numeric vector of data values
+#' @param ... Additional arguments to be passed to the \code{hist} function
+#'
+#' @importFrom graphics "hist"
+#'
+#' @export
+#'
+#' @family  densr
+#'
+#' @author Rachel McInerney - <\email{rachel.mcinerney.2021@@mumail.ie}>
+#'         Conor Thompson - <\email{conor.thompsongargan.2020@@mumail.ie}>
+#'         Osi Ukachukwu - <\email{osi.ukachukwu.2018@@mumail.ie}>
+#'
+#' @return An object of class \code{list} containing coordinates for plotting
+#' the frequency polygon. Midpoint of density histogram represented by the
+#' x-coordinate (\code{vx}), and the corresponding density values represented
+#' by the y-coordinate (\code{vy})
+#'
+#' @seealso \code{\link{hist}}
+#'
+#' @examples
+#' fp <- frequency_polygon(x = mtcars$mpg)
+#'
 frequency_polygon <- function(x, ...) {
   h <- graphics::hist(x, plot = FALSE)
   vx <- h$mids
