@@ -1,4 +1,6 @@
 # Function 2: Class Constructor Function
+# Sets up objects of class hist_dens properly, only contain what is allowed
+# Good class constructor functions provide checks and intelligible error/warning messages in the event that instances of a class don't satisfy the requirements of the class
 
 # Create object of class hist_dens
 
@@ -28,18 +30,37 @@
 create_hist_dens <- function(x,
                       type = c("gaussian", "kde", "fp"), # fp is an abbreviation for frequency polygon
                       ...) {
+
+  if(missing(type)) {
+    warning("no value specified for 'type'; the default type \"gaussian\" is used")
+    type = "gaussian"
+    } # missing tests whether a value was specified as an argument to a function
+  if(length(type) > 1) {
+    warning(paste0("only first element of the type vector used:\ntype = \"",
+                                         type[1], "\""))
+    type <- type[1]
+  }
+  if(!is.character(type)) stop("type must be a character string")
+  if(!(type %in% c("gaussian", "kde", "fp"))) stop("type must be one of \"gaussian\", \"kde\" or \"fp\"")
+
   type <- match.arg(type)
-  h <- suppressWarnings(graphics::hist(x, plot = FALSE, ...)) # don't want to return the histogram yet
+
+  h <- suppressWarnings(graphics::hist(x, plot = FALSE, ...)) # don't want to return the density histogram yet
   d <- switch(type,
               gaussian = stats::dnorm(x, mean(x), stats::sd(x), ...),
               kde = stats::density(x, ...),
               fp = frequency_polygon(x, ...))
-  result <- list(h=h, d=d, type = type)
-  class(result) <- "hist_dens"
+  result <- structure(list(h = h, d = d, type = type), class = "hist_dens")
   return(result)
 }
 
 # Quickly test the function
 create_hist_dens(mtcars$mpg)
+create_hist_dens(mtcars$mpg, type = "gaussian")
+create_hist_dens(mtcars$mpg, type = "kde")
+create_hist_dens(mtcars$mpg, type = "fp")
+create_hist_dens(mtcars$mpg, type = 2)
+create_hist_dens(mtcars$mpg, type = "rachel")
+create_hist_dens(mtcars$mpg, type = c("fp", "kde"))
 
 # the data 'x' must be numeric

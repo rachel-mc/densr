@@ -8,7 +8,7 @@
 # Estimate the density at locations excluding midpoints by linearly interpolating between adjacent bar heights
 
 frequency_polygon <- function(x, ...) {
-  h <- graphics::hist(x, freq = FALSE) # density histogram
+  h <- graphics::hist(x, plot = FALSE)
   vx <- h$mids
   vy <- h$density
   gapx <- diff(vx)[1]

@@ -1,21 +1,25 @@
 # Function 3: Method (reflected in name: . followed by class)
 
+# Define plot.hist_dens method for "hist_dens" class
+# Respect the genericFunction.class() naming convention and at a minimum match the arguments of the generic 'plot'
+
 # Function called plot that will only work on objects of class "hist_dens"
 
-# The plot() generic already exists - don't need to create it - so we write a plot method for the class hist_dens
-# plot.method() must use the same arguments as the plot() generic, namely x and ...
+# The generic plot() already exists - don't need to create it - so we write a plot method for the class hist_dens
+# plot.method() must use the same arguments as the plot() generic, namely x and ..., see formals(plot)
 # ... for different possible arguments
+# A method must implement the arguments in the generic at a minimum, but may contain further named arguments if desired
 
 # Must use curve() for dnorm() and lines to overlay the other density options
 
 plot.hist_dens <- function(x, ...) {
-  if(!inherits(x, "hist_dens")) stop("This function only works on objects of class \"hist_dens\"")
+  if(!inherits(x, "hist_dens")) stop("x must be of class \"hist_dens\"")
 
   h <- x$h # Pull out histogram, density and type from hist_dens object
   d <- x$d
   type <- x$type
 
-  plot(h, freq = FALSE) # for density histogram
+  plot(h, freq = FALSE, ...) # for density histogram
   # object of class histogram is plotted by plot.histogram
 
   switch(type,
@@ -36,3 +40,5 @@ x3 <- create_hist_dens(mtcars$mpg, type = "fp")
 plot(x3)
 
 plot(create_hist_dens(iris$Sepal.Length, type="kde", bw=3))
+
+plot.hist_dens(mtcars$mpg)
