@@ -1,14 +1,5 @@
-# Function 3: Method (reflected in name: . followed by class)
 
-# Function called plot that will only work on objects of class "hist_dens"
-
-# The plot() generic already exists - don't need to create it - so we write a plot method for the class hist_dens
-# plot.method() must use the same arguments as the plot() generic, namely x and ...
-# ... for different possible arguments
-
-# Must use curve() for dnorm() and lines to overlay the other density options
-
-#' Histogram density plot method
+#' Function 3: Histogram density plot method
 #'
 #' Method created to plot an object of class \code{"hist_dens"} using the
 #'  \code{plot.hist_dens}. This method overlays the histogram and density
@@ -54,16 +45,3 @@ plot.hist_dens <- function(x, ...) {
          kde = graphics::lines(d, ...),
          fp = graphics::lines(d$vx, d$vy, ...))
 }
-
-# Test this function by producing some plots
-# Basic check with no additional arguments - all options work :)
-x1 <- create_hist_dens(mtcars$mpg) # default
-plot(x1)
-
-x2 <- create_hist_dens(mtcars$mpg, type = "kde")
-plot(x2)
-
-x3 <- create_hist_dens(mtcars$mpg, type = "fp")
-plot(x3)
-
-plot(create_hist_dens(iris$Sepal.Length, type="kde", bw=3))
