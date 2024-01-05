@@ -1,25 +1,24 @@
-# Function 3: Method (reflected in name: . followed by class)
 
-# Define plot.hist_dens method for "hist_dens" class
-# Respect the genericFunction.class() naming convention and at a minimum match the arguments of the generic 'plot'
+# Vignette notes:
 
-# Function called plot that will only work on objects of class "hist_dens"
-
-# The generic plot() already exists - don't need to create it - so we write a plot method for the class hist_dens
-# plot.method() must use the same arguments as the plot() generic, namely x and ..., see formals(plot)
-# ... for different possible arguments
+# Respects the genericFunction.class() naming convention
 # A method must implement the arguments in the generic at a minimum, but may contain further named arguments if desired
+# Our plot.method() matches the arguments of the generic 'plot' (see formals(plot))
+# The generic plot() already exists (don't need to create it)
+# We use curve() to overlay normal densities from dnorm() and lines to overlay the other density options
+# # plot.hist_dens(mtcars$mpg) gives an error: x is not of class hist_dens
 
-# Must use curve() for dnorm() and lines to overlay the other density options
-
-#' Histogram density overlay plot method
+#' plot.hist_dens Method
 #'
-#' Method created to plot an object of class \code{"hist_dens"} using the
-#'  \code{plot.hist_dens}. This method overlays the histogram and density
-#'  estimates based on the specified type, ie. Gaussian, kde, or fp.
+#' A method defined to plot an object of class \code{"hist_dens"}.
 #'
-#' @param x Object of class \code{"hist_dens"}
-#' @param ... Additional arguments to be passed to
+#' This function overlays a density estimate, based on the
+#' type specified i.e. Gaussian, kde, or fp, to a histogram of the data \code{x}
+#' supplied to \code{\link{create_hist_dens}}.
+#'
+#' @param x An object of class \code{"hist_dens"}
+#' @param ... Different possible arguments that may be passed to \code{plot},
+#' \code{curve}, or \code{lines}
 #'
 #' @importFrom graphics "curve" "lines"
 #' @importFrom stats "dnorm" "sd"
@@ -32,15 +31,18 @@
 #'         Conor Thompson - <\email{conor.thompsongargan.2020@@mumail.ie}>
 #'         Osi Ukachukwu - <\email{osi.ukachukwu.2018@@mumail.ie}>
 #'
-#' @return NULL
+#' @return A histogram of numeric data with an explicitly stated density option
+#' superimposed on it.
 #'
-#' @note The input \code{x} must be of class \code{"hist_dens"}
+#' @note For this plot method to run efficiently,
+#' the argument \code{x} must be of class \code{"hist_dens"}
 #'
 #' @seealso \code{\link{create_hist_dens}} to create objects of class
 #' \code{"hist_dens"}
 #'
 #' @examples
-#' plot(create_hist_dens(mtcars$mpg, type="kde", bw=2))
+#' x1 <- create_hist_dens(mtcars$mpg, type="kde", bw=2)
+#' plot(x1)
 #' plot(create_hist_dens(iris$Sepal.Length, type="fp"))
 #'
 plot.hist_dens <- function(x, ...) {
@@ -58,18 +60,3 @@ plot.hist_dens <- function(x, ...) {
          kde = graphics::lines(d, ...),
          fp = graphics::lines(d$vx, d$vy, ...))
 }
-
-# Test this function by producing some plots
-# Basic check with no additional arguments - all options work :)
-#x1 <- create_hist_dens(mtcars$mpg) # default
-#plot(x1)
-
-#x2 <- create_hist_dens(mtcars$mpg, type = "kde")
-#plot(x2)
-
-#x3 <- create_hist_dens(mtcars$mpg, type = "fp")
-#plot(x3)
-
-#plot(create_hist_dens(iris$Sepal.Length, type="kde", bw=3))
-
-#plot.hist_dens(mtcars$mpg)

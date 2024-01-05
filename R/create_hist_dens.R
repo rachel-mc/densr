@@ -1,42 +1,32 @@
-# Function 2: Class Constructor Function
-# Sets up objects of class hist_dens properly, only contain what is allowed
+
+# Vignette notes:
+
+# 2 main functions, return objects that contain __, used in this order __, etc.
 # Good class constructor functions provide checks and intelligible error/warning messages in the event that instances of a class don't satisfy the requirements of the class
-
-# Create object of class hist_dens
-
-# Takes data x and type of density estimation (options listed) as input
 # Default is the first argument in the character string (gaussian)
-# Can have additional kde specific arguments
 # Use switch() instead of nested if statements for efficiency and speed
-# Returns the histogram, data and type of density used as an object of class hist_dens
 # Save histogram to use inside the plot function later
-
 # match.arg() checks whether the supplied type is one of the available options, otherwise it will return an error
 # We have ensured that e.g. type = "exponential" is not allowed (reflected in test)
-
 # Ellipses: argument to outer function can be passed through to inner functions
-
-# Don't need to write a function for the parametric density estimation as dnorm exists
+# Don't need to write a function for parametric density estimation as dnorm exists
 # stats is a base package so it does not need to be imported
-
 # d contains the density information from the type specified by the user (or default otherwise)
 # create_hist_dens(x) will be equivalent to create_hist_dens(x, type = "gaussian") by default
 
-# Vignette: returns object that contains ..., plot method exists for this type, 2 main functions etc.
-
-# For ROxygen documentation:
-#@seealso See \code{\link[stats]{density}} for a complete list of arguments that can be passed when \code{type = "kde"}
-
 #' Class Constructor Function: create_hist_dens
 #'
-#' Function computes a histogram and chooses the density estimation provided by
-#' user (default=Gaussian), assigning the result to class \code{"hist_dens"}
+#' Creates objects of class "hist_dens".
 #'
-#' @param x A numeric vector representing the data
+#' Plots but does not return a histogram of the given data. A density estimation type
+#' provided by the user (default=Gaussian) is computed, and this result is
+#' assigned a class \code{"hist_dens"}
+#'
+#' @param x A numeric vector that represents the data
 #' @param type Character string specifying the type of density estimation to be
 #' used. Options are "gaussian", "kde", and "fp"
-#' @param ... Additional arguments to be passed to the density estimation
-#' function
+#' @param ... Additional arguments to be passed to \code{hist} or the density estimation
+#' functions
 #'
 #' @importFrom graphics "hist"
 #' @importFrom stats "dnorm" "sd" "density"
@@ -54,8 +44,8 @@
 #' histogram (\code{h}), density values (\code{d}) and type of density
 #' estimation used (\code{type}).
 #'
-#' @seealso \code{\link[stats]{density}} for a complete list of arguments that
-#'         can be passed when \code{type = "kde"}
+#' @seealso \code{\link[stats]{density}} for a complete list of additional kde-specific
+#' arguments that can be passed when \code{type = "kde"}
 #'          \code{\link{frequency_polygon}} to create frequency polygon density estimations
 #'           when type specified is \code{type = "fp"}
 #' @examples
@@ -78,6 +68,8 @@ create_hist_dens <- function(x,
   if(!is.character(type)) stop("type must be a character string")
   if(!(type %in% c("gaussian", "kde", "fp"))) stop("type must be one of \"gaussian\", \"kde\" or \"fp\"")
 
+  if(!is.numeric(x)) stop("the data supplied must be a vector of numeric values") # for histogram
+
   type <- match.arg(type)
 
   h <- suppressWarnings(graphics::hist(x, plot = FALSE, ...)) # don't want to return the density histogram yet
@@ -89,13 +81,5 @@ create_hist_dens <- function(x,
   return(result)
 }
 
-# Quickly test the function
-#create_hist_dens(mtcars$mpg)
-#create_hist_dens(mtcars$mpg, type = "gaussian")
-#create_hist_dens(mtcars$mpg, type = "kde")
-#create_hist_dens(mtcars$mpg, type = "fp")
-#create_hist_dens(mtcars$mpg, type = 2)
-#create_hist_dens(mtcars$mpg, type = "rachel")
-#create_hist_dens(mtcars$mpg, type = c("fp", "kde"))
+# is warning for default problematic? create_hist_dens(mtcars$mpg)
 
-# the data 'x' must be numeric
