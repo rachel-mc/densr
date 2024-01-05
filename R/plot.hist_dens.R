@@ -32,7 +32,7 @@
 #'         Conor Thompson - <\email{conor.thompsongargan.2020@@mumail.ie}>
 #'         Osi Ukachukwu - <\email{osi.ukachukwu.2018@@mumail.ie}>
 #'
-#' @return
+#' @return NULL
 #'
 #' @note The input \code{x} must be of class \code{"hist_dens"}
 #'
@@ -61,15 +61,15 @@ plot.hist_dens <- function(x, ...) {
 
 # Test this function by producing some plots
 # Basic check with no additional arguments - all options work :)
-x1 <- create_hist_dens(mtcars$mpg) # default
-plot(x1)
+#x1 <- create_hist_dens(mtcars$mpg) # default
+#plot(x1)
 
-x2 <- create_hist_dens(mtcars$mpg, type = "kde")
-plot(x2)
+#x2 <- create_hist_dens(mtcars$mpg, type = "kde")
+#plot(x2)
 
-x3 <- create_hist_dens(mtcars$mpg, type = "fp")
-plot(x3)
+#x3 <- create_hist_dens(mtcars$mpg, type = "fp")
+#plot(x3)
 
-plot(create_hist_dens(iris$Sepal.Length, type="kde", bw=3))
+#plot(create_hist_dens(iris$Sepal.Length, type="kde", bw=3))
 
-plot.hist_dens(mtcars$mpg)
+#plot.hist_dens(mtcars$mpg)
