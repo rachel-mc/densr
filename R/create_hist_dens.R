@@ -56,7 +56,7 @@
 #'
 #' @seealso \code{\link[stats]{density}} for a complete list of arguments that
 #'         can be passed when \code{type = "kde"}
-#'          \code{\link{frequency_polygon}} to create frequency polygon density estimations 
+#'          \code{\link{frequency_polygon}} to create frequency polygon density estimations
 #'           when type specified is \code{type = "fp"}
 #' @examples
 #'        create_hist_dens(mtcars$mpg, type="kde", bw=2)
@@ -90,12 +90,12 @@ create_hist_dens <- function(x,
 }
 
 # Quickly test the function
-create_hist_dens(mtcars$mpg)
-create_hist_dens(mtcars$mpg, type = "gaussian")
-create_hist_dens(mtcars$mpg, type = "kde")
-create_hist_dens(mtcars$mpg, type = "fp")
-create_hist_dens(mtcars$mpg, type = 2)
-create_hist_dens(mtcars$mpg, type = "rachel")
-create_hist_dens(mtcars$mpg, type = c("fp", "kde"))
+#create_hist_dens(mtcars$mpg)
+#create_hist_dens(mtcars$mpg, type = "gaussian")
+#create_hist_dens(mtcars$mpg, type = "kde")
+#create_hist_dens(mtcars$mpg, type = "fp")
+#create_hist_dens(mtcars$mpg, type = 2)
+#create_hist_dens(mtcars$mpg, type = "rachel")
+#create_hist_dens(mtcars$mpg, type = c("fp", "kde"))
 
 # the data 'x' must be numeric
