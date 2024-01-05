@@ -56,7 +56,7 @@
 #'
 #' @seealso \code{\link[stats]{density}} for a complete list of arguments that
 #'         can be passed when \code{type = "kde"}
-#'          \code{\link{frequenxy_polygon}} to create frequency polygon density estimations 
+#'          \code{\link{frequency_polygon}} to create frequency polygon density estimations 
 #'           when type specified is \code{type = "fp"}
 #' @examples
 #'        create_hist_dens(mtcars$mpg, type="kde", bw=2)
