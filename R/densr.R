@@ -6,7 +6,7 @@
 #' \describe{
 #' \item{Type: }{Package}
 #' \item{Package: }{densr}
-#' \item{Version: }{1.1.0}
+#' \item{Version: }{0.1.0}
 #' \item{Date: }{2024-01-04}
 #' }
 #'
@@ -24,13 +24,14 @@
 #' @docType package
 #' @keywords package
 #'
-#' @examples
+#' @examples NULL
+#'
 .onAttach <- function(lib, pkg) {
   path    <- file.path(lib, pkg, "DESCRIPTION")
   version <- read.dcf(path, "Version")
   name    <- read.dcf(path, "Package")
   if(interactive()) {
-    packageStartupMessage(paste("\n    ____  _______   _______ ____ \n   / __ \\/ ____/ | / / ___// __ \\\t Histogram\n  / / / / __/ /  |/ /\\__ \\/ /_/ /\t Density\n / /_/ / /___/ /|  /___/ / _, _/\t Estimation\n/_____/_____/_/ |_//____/_/ |_|  "))
+    packageStartupMessage(paste("\n    ____  _______   _______ ____ \n   / __ \\/ ____/ | / / ___// __ \\\t Histogram\n  / / / / __/ /  |/ /\\__ \\/ /_/ /\t Density\n / /_/ / /___/ /|  /___/ / _, _/\t Overlay\n/_____/_____/_/ |_//____/_/ |_|  "))
     } else   {
     packageStartupMessage("\nPackage ", sQuote(name), " version ", version, ".\n")
   }
