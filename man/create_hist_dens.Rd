@@ -7,13 +7,13 @@
 create_hist_dens(x, type = c("gaussian", "kde", "fp"), ...)
 }
 \arguments{
-\item{x}{A numeric vector representing the data}
+\item{x}{A numeric vector that represents the data}
 
 \item{type}{Character string specifying the type of density estimation to be
 used. Options are "gaussian", "kde", and "fp"}
 
-\item{...}{Additional arguments to be passed to the density estimation
-function}
+\item{...}{Additional arguments to be passed to \code{hist} or the density estimation
+functions}
 }
 \value{
 An object of class \code{"hist_dens"} containing the
@@ -21,8 +21,12 @@ histogram (\code{h}), density values (\code{d}) and type of density
 estimation used (\code{type}).
 }
 \description{
-Function computes a histogram and chooses the density estimation provided by
-user (default=Gaussian), assigning the result to class \code{"hist_dens"}
+Creates objects of class "hist_dens".
+}
+\details{
+Plots but does not return a histogram of the given data. A density estimation type
+provided by the user (default=Gaussian) is computed, and this result is
+assigned a class \code{"hist_dens"}
 }
 \examples{
        create_hist_dens(mtcars$mpg, type="kde", bw=2)
@@ -30,8 +34,8 @@ user (default=Gaussian), assigning the result to class \code{"hist_dens"}
 
 }
 \seealso{
-\code{\link[stats]{density}} for a complete list of arguments that
-        can be passed when \code{type = "kde"}
+\code{\link[stats]{density}} for a complete list of additional kde-specific
+arguments that can be passed when \code{type = "kde"}
          \code{\link{frequency_polygon}} to create frequency polygon density estimations
           when type specified is \code{type = "fp"}
 

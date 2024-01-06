@@ -2,25 +2,35 @@
 % Please edit documentation in R/plot.hist_dens.R
 \name{plot.hist_dens}
 \alias{plot.hist_dens}
-\title{Histogram density overlay plot method}
+\title{plot.hist_dens Method}
 \usage{
 \method{plot}{hist_dens}(x, ...)
 }
 \arguments{
-\item{x}{Object of class \code{"hist_dens"}}
+\item{x}{An object of class \code{"hist_dens"}}
 
-\item{...}{Additional arguments to be passed to}
+\item{...}{Different possible arguments that may be passed to \code{plot},
+\code{curve}, or \code{lines}}
+}
+\value{
+A histogram of numeric data with an explicitly stated density option
+superimposed on it.
 }
 \description{
-Method created to plot an object of class \code{"hist_dens"} using the
- \code{plot.hist_dens}. This method overlays the histogram and density
- estimates based on the specified type, ie. Gaussian, kde, or fp.
+A method defined to plot an object of class \code{"hist_dens"}.
+}
+\details{
+This function overlays a density estimate, based on the
+type specified i.e. Gaussian, kde, or fp, to a histogram of the data \code{x}
+supplied to \code{\link{create_hist_dens}}.
 }
 \note{
-The input \code{x} must be of class \code{"hist_dens"}
+For this plot method to run efficiently,
+the argument \code{x} must be of class \code{"hist_dens"}
 }
 \examples{
-plot(create_hist_dens(mtcars$mpg, type="kde", bw=2))
+x1 <- create_hist_dens(mtcars$mpg, type="kde", bw=2)
+plot(x1)
 plot(create_hist_dens(iris$Sepal.Length, type="fp"))
 
 }

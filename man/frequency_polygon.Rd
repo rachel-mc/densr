@@ -7,21 +7,23 @@
 frequency_polygon(x, ...)
 }
 \arguments{
-\item{x}{A numeric vector of data values}
+\item{x}{A numeric vector of data}
 
 \item{...}{Additional arguments to be passed to the \code{hist} function}
 }
 \value{
 An object of class \code{list} containing coordinates for plotting
-the frequency polygon. Midpoint of density histogram represented by the
-x-coordinate (\code{vx}), and the corresponding density values represented
-by the y-coordinate (\code{vy})
+the frequency polygon. The midpoints of the density histogram are represented by the
+x-coordinates (\code{vx}), and the corresponding density values (heights of the bars)
+are represented by the y-coordinates (\code{vy})
 }
 \description{
-Calculates the coordinates to plot the frequency polygon density estimate.
-This function adapts code from the notes to create a frequency polygon by
-extracting components of a density histogram object and estimating density
-at locations excluding midpoints.
+Calculates the required coordinates to plot the frequency polygon density estimate.
+}
+\details{
+This function estimates this density at locations excluding the midpoints by linearly
+interpolating between adjacent bar heights. The relevant components are extracted
+from the histogram object created from the data.
 }
 \examples{
 fp <- frequency_polygon(x = mtcars$mpg)
