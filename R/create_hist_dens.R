@@ -14,44 +14,43 @@
 # d contains the density information from the type specified by the user (or default otherwise)
 # create_hist_dens(x) will be equivalent to create_hist_dens(x, type = "gaussian") by default
 
-#' Class Constructor Function: create_hist_dens
+#' Create objects of class \code{hist_dens}
 #'
-#' Creates objects of class "hist_dens".
+#' Plots but does not return a histogram of the inputted data. A density
+#' estimation type provided by the user is computed. A class \code{"hist_dens"}
+#' is assigned to the result.
 #'
-#' Plots but does not return a histogram of the given data. A density estimation type
-#' provided by the user (default=Gaussian) is computed, and this result is
-#' assigned a class \code{"hist_dens"}
+#' @param x A numeric vector that represents the data.
+#' @param type A character string specifying the type of density estimation to
+#' be used. Options include either \code{"gaussian"} by default, \code{"kde"}, or
+#' \code{"fp"} for parametric normal, nonparametric kernel, or continuous
+#' density estimation.
+#' @param ... Additional named arguments to be passed through to \code{hist} or
+#' the density estimation functions.
 #'
-#' @param x A numeric vector that represents the data
-#' @param type Character string specifying the type of density estimation to be
-#' used. Options are "gaussian", "kde", and "fp"
-#' @param ... Additional arguments to be passed to \code{hist} or the density estimation
-#' functions
+#' @return An list containing the histogram (\code{h}) and its components,
+#' density values (\code{d}), the type of density estimation used (\code{type}),
+#' and the class attributed to the object: \code{"hist_dens"}
 #'
-#' @importFrom graphics "hist"
-#' @importFrom stats "dnorm" "sd" "density"
+#' @note This is a class constructor function. A separate dedicated
+#' \code{\link{plot}} function is provided for objects of class
+#' \code{"create_hist_dens"}.
 #'
-#' @export
+#' @seealso \code{\link[stats]{density}} for a complete list of additional
+#' kde-specific arguments that can be passed when \code{type = "kde"}
+#'          \code{\link{frequency_polygon}} to create frequency polygon density
+#'          estimations when the type specified is \code{type = "fp"}
 #'
 #' @family densr
 #'
-#' @author Rachel McInerney - <\email{rachel.mcinerney.2021@@mumail.ie}>
-#'         Conor Thompson - <\email{conor.thompsongargan.2020@@mumail.ie}>
+#' @export
+#' @author Rachel McInerney - <\email{rachel.mcinerney.2021@@mumail.ie}>,
+#'         Conor Thompson - <\email{conor.thompsongargan.2020@@mumail.ie}>,
 #'         Osi Ukachukwu - <\email{osi.ukachukwu.2018@@mumail.ie}>
 #'
-#'
-#' @return An object of class \code{"hist_dens"} containing the
-#' histogram (\code{h}), density values (\code{d}) and type of density
-#' estimation used (\code{type}).
-#'
-#' @seealso \code{\link[stats]{density}} for a complete list of additional kde-specific
-#' arguments that can be passed when \code{type = "kde"}
-#'          \code{\link{frequency_polygon}} to create frequency polygon density estimations
-#'           when type specified is \code{type = "fp"}
 #' @examples
-#'        create_hist_dens(mtcars$mpg, type="kde", bw=2)
-#'        create_hist_dens(iris$Sepal.Length, type="fp")
-#'
+#' create_hist_dens(mtcars$disp, type = "kde", bw = 2)
+#' create_hist_dens(iris$Petal.Width, type = "fp")
 create_hist_dens <- function(x,
                       type = c("gaussian", "kde", "fp"), # fp is an abbreviation for frequency polygon
                       ...) {

@@ -2,41 +2,43 @@
 % Please edit documentation in R/frequency_polygon.R
 \name{frequency_polygon}
 \alias{frequency_polygon}
-\title{Frequency Polygon}
+\title{Constructing a continuous density estimator using histograms}
 \usage{
 frequency_polygon(x, ...)
 }
 \arguments{
-\item{x}{A numeric vector of data values}
+\item{x}{A numeric vector of data, including integers.}
 
-\item{...}{Additional arguments to be passed to the \code{hist} function}
+\item{...}{Optional additional arguments that are specific to the \code{hist}
+function.}
 }
 \value{
-An object of class \code{list} containing coordinates for plotting
-the frequency polygon. Midpoint of density histogram represented by the
-x-coordinate (\code{vx}), and the corresponding density values represented
-by the y-coordinate (\code{vy})
+A list which contains the coordinates for plotting the frequency
+polygon. The midpoints of the density histogram are represented by the
+x-coordinates (\code{vx}), and the corresponding density values (heights of
+the bars) are represented by the y-coordinates (\code{vy}).
 }
 \description{
-Calculates the coordinates to plot the frequency polygon density estimate.
-This function adapts code from the notes to create a frequency polygon by
-extracting components of a density histogram object and estimating density
-at locations excluding midpoints.
+Calculates the coordinates required to plot the frequency
+polygon density estimate. Estimates the density at locations excluding
+midpoints by linearly interpolating between adjacent bar heights. The
+constituent elements are then extracted from the output of \code{hist}.
 }
 \examples{
-fp <- frequency_polygon(x = mtcars$mpg)
-
+frequency_polygon(x = mtcars$mpg)
+frequency_polygon(iris$Sepal.Length, breaks = seq(4, 8, 0.2))
 }
 \seealso{
-\code{\link{hist}}
+\code{\link{hist}} for different possible named arguments that may
+be passed to \code{frequency_polygon}
 
 Other densr: 
 \code{\link{create_hist_dens}()},
-\code{\link{plot.hist_dens}()}
+\code{\link{plot}()}
 }
 \author{
-Rachel McInerney - <\email{rachel.mcinerney.2021@mumail.ie}>
-        Conor Thompson - <\email{conor.thompsongargan.2020@mumail.ie}>
+Rachel McInerney - <\email{rachel.mcinerney.2021@mumail.ie}>,
+        Conor Thompson - <\email{conor.thompsongargan.2020@mumail.ie}>,
         Osi Ukachukwu - <\email{osi.ukachukwu.2018@mumail.ie}>
 }
 \concept{densr}
