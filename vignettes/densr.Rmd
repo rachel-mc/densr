@@ -10,9 +10,9 @@ vignette: >
   %\VignetteIndexEntry{densr}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  %\VignetteDepends{IMIFA
-                    MoEClust
-                    bookdown}
+  %\VignetteDepends{bookdown}
+  %\VignetteDepends{IMIFA}
+  %\VignetteDepends{MoEClust}
 ---
 
 ```{r, include = FALSE}

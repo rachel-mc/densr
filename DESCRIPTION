@@ -15,7 +15,9 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 4.1.0)
 BugReports: https://github.com/rachel-mc/densr
-Suggests: 
+Suggests: bookdown,
+    IMIFA,
+    MoEClust,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
