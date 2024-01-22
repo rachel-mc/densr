@@ -2,6 +2,10 @@
 #'
 #' A package to overlay a histogram with different types of density estimation methods on a numeric data set.
 #'
+#'
+#' @param lib Path to the library which the package is installed into
+#' @param pkg Name of the package
+#'
 #' @section Details:
 #' \describe{
 #' \item{Type: }{Package}
@@ -25,15 +29,16 @@
 #' @keywords package
 #'
 #' @examples NULL
-#'
+"_PACKAGE"
+
 .onAttach <- function(lib, pkg) {
   path    <- file.path(lib, pkg, "DESCRIPTION")
   version <- read.dcf(path, "Version")
   name    <- read.dcf(path, "Package")
   if(interactive()) {
-    packageStartupMessage(paste("\n    ____  _______   _______ ____ \n   / __ \\/ ____/ | / / ___// __ \\\t Histogram\n  / / / / __/ /  |/ /\\__ \\/ /_/ /\t Density\n / /_/ / /___/ /|  /___/ / _, _/\t Overlay\n/_____/_____/_/ |_//____/_/ |_|  "))
+    packageStartupMessage(paste("\n    ____  _______   _______ ____ \n   / __ \\/ ____/ | / / ___// __ \\\t Density Overlay\n  / / / / __/ /  |/ /\\__ \\/ /_/ /\t to\n / /_/ / /___/ /|  /___/ / _, _/\t Histograms\n/_____/_____/_/ |_//____/_/ |_|\t  version", version, "\n"))
     } else   {
     packageStartupMessage("\nPackage ", sQuote(name), " version ", version, ".\n")
   }
-
+    packageStartupMessage(paste(" Visit https://github.com/rachel-mc/densr.git for documentation and examples.\n Type", sQuote("?densr"), "for a brief guide on how to use this package.\n Please cite densr in your work using:", sQuote(paste0("citation(", dQuote(name),")"))))
 }

@@ -55,21 +55,12 @@ create_hist_dens <- function(x,
                       type = c("gaussian", "kde", "fp"), # fp is an abbreviation for frequency polygon
                       ...) {
 
-  if(missing(type)) {
-    warning("no value specified for 'type'; the default type \"gaussian\" is used")
-    type = "gaussian"
-    } # missing tests whether a value was specified as an argument to a function
-  if(length(type) > 1) {
-    warning(paste0("only first element of the type vector used:\ntype = \"",
-                                         type[1], "\""))
-    type <- type[1]
-  }
+  type <- match.arg(type)
+
   if(!is.character(type)) stop("type must be a character string")
   if(!(type %in% c("gaussian", "kde", "fp"))) stop("type must be one of \"gaussian\", \"kde\" or \"fp\"")
 
   if(!is.numeric(x)) stop("the data supplied must be a vector of numeric values") # for histogram
-
-  type <- match.arg(type)
 
   h <- suppressWarnings(graphics::hist(x, plot = FALSE, ...)) # don't want to return the density histogram yet
   d <- switch(type,
@@ -79,6 +70,4 @@ create_hist_dens <- function(x,
   result <- structure(list(h = h, d = d, type = type), class = "hist_dens")
   return(result)
 }
-
-# is warning for default problematic? create_hist_dens(mtcars$mpg)
 

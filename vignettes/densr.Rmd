@@ -1,0 +1,143 @@
+---
+title: "densr"
+output: 
+  bookdown::html_document2:
+      base_format: rmarkdown::html_vignette
+      fig_caption: yes
+      number_sections: no
+urlcolor: blue
+vignette: >
+  %\VignetteIndexEntry{densr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{IMIFA
+                    MoEClust
+                    bookdown}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  fig.width = 7,
+  fig.height = 5,
+  fig.align = "center",
+  message = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, echo=FALSE}
+library(densr)
+```
+
+## Introduction
+
+Welcome to the __densr__ package, a powerful tool designed to enhance your data analysis by providing methods to overlay histograms with various density estimation techniques. This vignette will guide you through the installation process and demonstrate the usage of the central components of this package.
+
+Three functions are provided:
+
+  1. `frequency_polygon()`: for calculating a frequency polygon density estimate,
+  
+  2. `create_hist_dens()`: for creating objects of class hist_dens,
+  
+  3. and a `plot()` method for producing final visualisations.
+  
+Typically, these functions are applied sequentially. See below for a typical workflow of the `densr` package.
+
+### Installation
+
+__densr__ will run in Windows, Mac OS X, or Linux but firstly requires installing R [R](https://cran.r-project.org/), and R Studio [RStudio](https://www.rstudio.com/) (highly recommended).
+
+Type the following command in R to install the latest development version of the package from the __densr__ [GitHub page](https://github.com/rachel-mc/densr): 
+
+```{r, eval=FALSE}
+install.packages('devtools')
+devtools::install_github('rachel-mc/densr')
+```
+
+Then type:
+
+```{r}
+library(densr)
+```
+
+to load in the aforementioned functions.
+
+Now that the `densr` package is installed and loaded, let's explore its functionalities.
+
+## `frequency_polygon()`
+
+This function derives a frequency polygon from the components of a histogram object and returns the coordinates of the resulting density estimate. The frequency polygon is a valid density as it integrates to approximately one. This function may be used within `create_hist_dens()`.
+
+```{r}
+data(ais, package = "MoEClust")
+fem <- subset(ais, sex == "female")$Fe
+frequency_polygon(fem)
+```
+
+## `create_hist_dens()`
+
+This is the main function of the `densr` package as it is used to ultimately create density histograms. It creates an object of class "hist_dens", which contains the histogram information, density values, and the particular method used for estimating the density.
+
+The 'type' argument consists of a character string denoting the valid options for different types of density estimation. `match.arg()` and the informative error messages included in the function additionally check that the user correctly specified _one_ of the following, otherwise execution is terminated:  
+  "gaussian": Gaussian density estimation  
+  "kde": Kernel density estimation  
+  "fp": Frequency polygon density estimation  
+The default type is specified as the first entry in the character string.
+
+We illustrate this function's default settings with a toy example that generates random values from a standard normal distribution, using the default `rnorm()` arguments of mean 0 and standard deviation 1:
+
+```{r}
+fake_data <- rnorm(10000)
+x <- create_hist_dens(fake_data)
+```
+
+Kernel density estimation is the most commonly used nonparametric density estimator. The ellipses construct allows additional arguments to the density function to be supplied. 
+
+This example uses Old Faithful Geyser Data and its waiting variable which exhibits multimodality. R estimates the optimal bandwidth (degree of smoothing) when it is not specified by the user. We can manually adjust the kernel as follows:
+
+```{r}
+data(faithful)
+data1 <- create_hist_dens(faithful$waiting, type = "kde", kernel = "rectangular")
+data2 <- create_hist_dens(faithful$waiting, type = "kde", kernel = "biweight")
+```
+
+We can pass additional arguments to the inner `hist()` function. Below, one histogram has the number of intervals chosen by Scott's Rule, and the other has a sequence of breaks defined for it that spans the range of the data.
+
+```{r}
+data(olive, package = "IMIFA")
+scott <- create_hist_dens(olive$linolenic, type = "fp", breaks = "Scott")
+seq <- create_hist_dens(olive$linolenic, type = "fp", breaks = seq(0, 80, by = 2))
+```
+
+## `plot()`
+
+To visualize the histograms with a density overlayed, you can use the dedicated plotting function. The `plot()` method provided simply plots the created objects of class "hist_dens". Taking each data from above, a plot can be created by typing `plot()` with the data as its argument.
+
+```{r}
+plot(x)
+```
+
+The assumed parametric form for this set of independent and identically distributed observations is correct.
+
+Let's see the impact that changing the kernel has on the density:
+
+```{r}
+par(mfrow = c(1,2))
+plot(data1)
+plot(data2)
+```
+
+Next, we compare the two plots of the differing histograms side by side. 
+
+```{r}
+par(mfrow = c(1,2))
+plot(scott)
+plot(seq)
+```
+
+### Conclusion
+
+The `densr` package is a useful tool. It smoothly combines different methods for estimating density into your histograms. Through trialing and testing various kinds and settings, you can gain a deeper understanding of your data.
+
+If you encounter any issues or have suggestions, please visit the [GitHub issues page](https://github.com/rachel-mc/densr/issues)

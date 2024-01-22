@@ -1,10 +1,10 @@
 Package: densr
 Type: Package
-Date: 2023-12-21
+Date: 2024-01-01
 Title: Overlay densities to histograms
 Version: 0.1.0
 Authors@R: c(person("Rachel", "McInerney", email = "rachel.mcinerney.2021@mumail.ie", role = c("aut", "cre")),
-  person("Conor", "Gargan", email = "conor.thompsongargan.2020@mumail.ie", role = c("aut")),
+  person("Conor", "Thompson", email = "conor.thompsongargan.2020@mumail.ie", role = c("aut")),
   person("Osi", "Ukachukwu", email = "osi.ukachukwu.2018@mumail.ie", role = c("aut")))
 Description: Plots a histogram of a numeric variable within some specified existing data in R
     and overlays either (a) parametric dnorm density estimate, 
@@ -16,6 +16,9 @@ LazyData: true
 Depends: R (>= 4.1.0)
 BugReports: https://github.com/rachel-mc/densr
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 RoxygenNote: 7.2.3
+VignetteBuilder: knitr
