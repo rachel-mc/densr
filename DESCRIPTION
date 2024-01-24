@@ -13,7 +13,7 @@ Description: Plots a histogram of a numeric variable within some specified exist
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 4.1.0)
+Depends: R (>= 4.3.0)
 BugReports: https://github.com/rachel-mc/densr
 Suggests: bookdown,
     IMIFA,

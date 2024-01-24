@@ -42,7 +42,7 @@ Three functions are provided:
   
   3. and a `plot()` method for producing final visualisations.
   
-Typically, these functions are applied sequentially. See below for a typical workflow of the `densr` package.
+Typically, these functions are applied sequentially (used in the order they are listed above). See below for a typical workflow of the `densr` package.
 
 ### Installation
 
@@ -77,15 +77,15 @@ frequency_polygon(fem)
 
 ## `create_hist_dens()`
 
-This is the main function of the `densr` package as it is used to ultimately create density histograms. It creates an object of class "hist_dens", which contains the histogram information, density values, and the particular method used for estimating the density.
+This is the main function of the `densr` package as it is used to ultimately create density histograms. It creates an object of class "hist_dens", which contains the data, histogram information (to later use inside the plot function), density values, and the particular method used for estimating the density.
 
-The 'type' argument consists of a character string denoting the valid options for different types of density estimation. `match.arg()` and the informative error messages included in the function additionally check that the user correctly specified _one_ of the following, otherwise execution is terminated:  
+The 'type' argument consists of a character string denoting the valid options for different types of density estimation. `match.arg()` and the intelligible error messages included in the function additionally check that the user correctly supplied _one_ of the following.   If no type is specified, the default is used and otherwise execution is terminated:  
   "gaussian": Gaussian density estimation  
   "kde": Kernel density estimation  
   "fp": Frequency polygon density estimation  
 The default type is specified as the first entry in the character string.
 
-We illustrate this function's default settings with a toy example that generates random values from a standard normal distribution, using the default `rnorm()` arguments of mean 0 and standard deviation 1:
+We illustrate this function's default settings with a toy example that generates random values from a standard normal distribution, using the default `rnorm()` arguments of mean 0 and standard deviation 1. Recall that `create_hist_dens(x)` will be equivalent to `create_hist_dens(x, type = "gaussian")` by default.
 
 ```{r}
 fake_data <- rnorm(10000)
@@ -94,7 +94,7 @@ x <- create_hist_dens(fake_data)
 
 Kernel density estimation is the most commonly used nonparametric density estimator. The ellipses construct allows additional arguments to the density function to be supplied. 
 
-This example uses Old Faithful Geyser Data and its waiting variable which exhibits multimodality. R estimates the optimal bandwidth (degree of smoothing) when it is not specified by the user. We can manually adjust the kernel as follows:
+This example uses Old Faithful Geyser Data and its waiting time between eruptions variable which exhibits multimodality. R estimates the optimal bandwidth (degree of smoothing) when it is not specified by the user. We can manually adjust the kernel as follows:
 
 ```{r}
 data(faithful)
@@ -115,7 +115,7 @@ seq <- create_hist_dens(olive$linolenic, type = "fp", breaks = seq(0, 80, by = 2
 To visualize the histograms with a density overlayed, you can use the dedicated plotting function. The `plot()` method provided simply plots the created objects of class "hist_dens". Taking each data from above, a plot can be created by typing `plot()` with the data as its argument.
 
 ```{r}
-plot(x)
+plot(x, col = "thistle", main = "Standard Normal Distribution")
 ```
 
 The assumed parametric form for this set of independent and identically distributed observations is correct.
@@ -124,16 +124,18 @@ Let's see the impact that changing the kernel has on the density:
 
 ```{r}
 par(mfrow = c(1,2))
-plot(data1)
-plot(data2)
+plot(data1, lwd = 2, main = "", xlab = "Waiting Time (in minutes)")
+plot(data2, lwd = 2, lty = 3, main = "", xlab = "Waiting Time (in minutes)")
+legend("topleft", legend = c("rectangular", "biweight"), lty = c(1,3))
 ```
 
 Next, we compare the two plots of the differing histograms side by side. 
 
 ```{r}
 par(mfrow = c(1,2))
-plot(scott)
-plot(seq)
+plot(scott, main = "", border = "darkorchid2", xlab = "Linolenic acid content in olives")
+plot(seq, main = "", border = "dodgerblue2", xlab = "Linolenic acid content in olives")
+mtext("Density histograms with Scott's breaks (purple) and Sequence breaks (blue)", side = 1, line = -21, outer = TRUE)
 ```
 
 ### Conclusion

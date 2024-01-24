@@ -1,19 +1,4 @@
 
-# Vignette notes:
-
-# 2 main functions, return objects that contain __, used in this order __, etc.
-# Good class constructor functions provide checks and intelligible error/warning messages in the event that instances of a class don't satisfy the requirements of the class
-# Default is the first argument in the character string (gaussian)
-# Use switch() instead of nested if statements for efficiency and speed
-# Save histogram to use inside the plot function later
-# match.arg() checks whether the supplied type is one of the available options, otherwise it will return an error
-# We have ensured that e.g. type = "exponential" is not allowed (reflected in test)
-# Ellipses: argument to outer function can be passed through to inner functions
-# Don't need to write a function for parametric density estimation as dnorm exists
-# stats is a base package so it does not need to be imported
-# d contains the density information from the type specified by the user (or default otherwise)
-# create_hist_dens(x) will be equivalent to create_hist_dens(x, type = "gaussian") by default
-
 #' Create objects of class \code{hist_dens}
 #'
 #' Plots but does not return a histogram of the inputted data. A density
@@ -30,7 +15,8 @@
 #'
 #' @return An list containing the histogram (\code{h}) and its components,
 #' density values (\code{d}), the type of density estimation used (\code{type}),
-#' and the class attributed to the object: \code{"hist_dens"}
+#' the inputted data (\code{x}), and the class attributed to the object:
+#' \code{"hist_dens"}
 #'
 #' @note This is a class constructor function. A separate dedicated
 #' \code{\link{plot}} function is provided for objects of class
@@ -63,11 +49,15 @@ create_hist_dens <- function(x,
   if(!is.numeric(x)) stop("the data supplied must be a vector of numeric values") # for histogram
 
   h <- suppressWarnings(graphics::hist(x, plot = FALSE, ...)) # don't want to return the density histogram yet
+
   d <- switch(type,
-              gaussian = stats::dnorm(x, mean(x), stats::sd(x), ...),
+              gaussian = stats::dnorm(x, mean(x), stats::sd(x)), # dnorm exists for parametric density
               kde = stats::density(x, ...),
               fp = frequency_polygon(x, ...))
-  result <- structure(list(h = h, d = d, type = type), class = "hist_dens")
+
+  result <- structure(list(x = x, h = h, d = d, type = type), class = "hist_dens")
   return(result)
 }
 
+# We have ensured that e.g. type = "exponential" is not allowed (reflected in test)
+# stats is a base package so it does not need to be imported

@@ -1,13 +1,4 @@
 
-# Vignette notes:
-
-# Respects the genericFunction.class() naming convention
-# A method must implement the arguments in the generic at a minimum, but may contain further named arguments if desired
-# Our plot.method() matches the arguments of the generic 'plot' (see formals(plot))
-# The generic plot() already exists (don't need to create it)
-# We use curve() to overlay normal densities from dnorm() and lines to overlay the other density options
-# # plot.hist_dens(mtcars$mpg) gives an error: x is not of class hist_dens
-
 #' Plot create_hist_dens output
 #'
 #' Plotting method for objects inheriting from class \code{"hist_dens"}.
@@ -45,17 +36,29 @@ plot <- function(x, ...) {
 
 #' @export
 plot.hist_dens <- function(x, ...) {
-  if(!inherits(x, "hist_dens")) stop("x must be of class \"hist_dens\"")
 
-  h <- x$h # Pull out histogram, density and type from hist_dens object
+  if(!inherits(x, "hist_dens")) stop("x must be of class \"hist_dens\"")
+  # returns an error if x is not of class "hist_dens"
+
+  h <- x$h # Pull out histogram, density, type and data from hist_dens object
   d <- x$d
   type <- x$type
+  x <- x$x
 
-  base::plot(h, freq = FALSE, ...) # for density histogram
+  mu <- mean(x)
+  sigma <- stats::sd(x)
+
+  h |>
+    base::plot(freq = FALSE, ...) # for density histogram
   # object of class histogram is plotted by plot.histogram
 
   switch(type,
-         gaussian = graphics::curve(stats::dnorm(x, mean(x), stats::sd(x), ...), add = TRUE, ...),
+         gaussian = graphics::curve(dnorm(x, mu, sigma), add = TRUE, ...),
          kde = graphics::lines(d, ...),
          fp = graphics::lines(d$vx, d$vy, ...))
 }
+
+# Respects the genericFunction.class() naming convention
+# A method must implement the arguments in the generic at a minimum, but may contain further named arguments if desired
+# Our plot.method() matches the arguments of the generic 'plot' which already exists (see formals(plot) : x, ...)
+# We use curve() to overlay normal densities from dnorm() and lines to overlay the other density options
