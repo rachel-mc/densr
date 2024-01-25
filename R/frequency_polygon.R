@@ -23,10 +23,10 @@
 #' @family densr
 #'
 #' @seealso \code{\link{hist}} for different possible named arguments that may
-#' be passed to \code{frequency_polygon}
+#' be passed to \code{frequency_polygon}.
 #'
 #' @examples
-#' frequency_polygon(x = mtcars$mpg)
+#' frequency_polygon(mtcars$mpg)
 #' frequency_polygon(iris$Sepal.Length, breaks = seq(4, 8, 0.2))
 frequency_polygon <- function(x, ...) {
   h <- graphics::hist(x, plot = FALSE, ...)
@@ -40,4 +40,4 @@ frequency_polygon <- function(x, ...) {
   return(result)
 }
 
-# Currently, all packages used throughout this code are attached base packages that are distributed in R by default
+# All packages used throughout this code are attached base packages that are distributed in R by default

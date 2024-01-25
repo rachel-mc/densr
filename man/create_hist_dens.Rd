@@ -12,15 +12,16 @@ create_hist_dens(x, type = c("gaussian", "kde", "fp"), ...)
 \item{type}{A character string specifying the type of density estimation to
 be used. Options include either \code{"gaussian"} by default, \code{"kde"}, or
 \code{"fp"} for parametric normal, nonparametric kernel, or continuous
-density estimation.}
+density estimation respectively.}
 
 \item{...}{Additional named arguments to be passed through to \code{hist} or
 the density estimation functions.}
 }
 \value{
-An list containing the histogram (\code{h}) and its components,
-density values (\code{d}), the type of density estimation used (\code{type}),
-and the class attributed to the object: \code{"hist_dens"}
+An list containing the inputted data (\code{x}), the histogram
+(\code{h}) and its components, density values (\code{d}), the type of
+density estimation used (\code{type}), and the class attributed to the
+object:\code{"hist_dens"}.
 }
 \description{
 Plots but does not return a histogram of the inputted data. A density
@@ -29,8 +30,8 @@ is assigned to the result.
 }
 \note{
 This is a class constructor function. A separate dedicated
-\code{\link{plot}} function is provided for objects of class
-\code{"create_hist_dens"}.
+\code{\link{plot}} function is provided for \code{"create_hist_dens"}
+output.
 }
 \examples{
 create_hist_dens(mtcars$disp, type = "kde", bw = 2)
@@ -38,9 +39,9 @@ create_hist_dens(iris$Petal.Width, type = "fp")
 }
 \seealso{
 \code{\link[stats]{density}} for a complete list of additional
-kde-specific arguments that can be passed when \code{type = "kde"}
+kde-specific arguments that can be passed when \code{type = "kde"}.
          \code{\link{frequency_polygon}} to create frequency polygon density
-         estimations when the type specified is \code{type = "fp"}
+         estimates when the type specified is \code{type = "fp"}.
 
 Other densr: 
 \code{\link{frequency_polygon}()},

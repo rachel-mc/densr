@@ -6,14 +6,15 @@ Version: 0.1.0
 Authors@R: c(person("Rachel", "McInerney", email = "rachel.mcinerney.2021@mumail.ie", role = c("aut", "cre")),
   person("Conor", "Thompson", email = "conor.thompsongargan.2020@mumail.ie", role = c("aut")),
   person("Osi", "Ukachukwu", email = "osi.ukachukwu.2018@mumail.ie", role = c("aut")))
-Description: Plots a histogram of a numeric variable within some specified existing data in R
-    and overlays either (a) parametric dnorm density estimate, 
+Description: Plots a histogram of a specified numeric variable within some existing data in R
+    and overlays either (a) a parametric normal density estimate, 
     (b) nonparametric kernel density estimation with arguments
     or (c) continuous frequency polygon density estimation to it.
-License: GPL (>= 3)
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 4.3.0)
+URL: https://github.com/rachel-mc/densr
 BugReports: https://github.com/rachel-mc/densr
 Suggests: bookdown,
     IMIFA,

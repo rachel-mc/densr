@@ -25,12 +25,12 @@ midpoints by linearly interpolating between adjacent bar heights. The
 constituent elements are then extracted from the output of \code{hist}.
 }
 \examples{
-frequency_polygon(x = mtcars$mpg)
+frequency_polygon(mtcars$mpg)
 frequency_polygon(iris$Sepal.Length, breaks = seq(4, 8, 0.2))
 }
 \seealso{
 \code{\link{hist}} for different possible named arguments that may
-be passed to \code{frequency_polygon}
+be passed to \code{frequency_polygon}.
 
 Other densr: 
 \code{\link{create_hist_dens}()},

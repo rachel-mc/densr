@@ -42,7 +42,7 @@ Three functions are provided:
   
   3. and a `plot()` method for producing final visualisations.
   
-Typically, these functions are applied sequentially (used in the order they are listed above). See below for a typical workflow of the `densr` package.
+Typically, these functions are applied sequentially (i.e. used in the order that they are listed above). See below for a typical workflow of the `densr` package.
 
 ### Installation
 
@@ -67,7 +67,7 @@ Now that the `densr` package is installed and loaded, let's explore its function
 
 ## `frequency_polygon()`
 
-This function derives a frequency polygon from the components of a histogram object and returns the coordinates of the resulting density estimate. The frequency polygon is a valid density as it integrates to approximately one. This function may be used within `create_hist_dens()`.
+This function derives a frequency polygon from the components of a histogram object and returns the coordinates of the resulting density estimate. The frequency polygon is a valid density as it integrates to approximately one. This function is used within `create_hist_dens()` if `type = "fp"`.
 
 ```{r}
 data(ais, package = "MoEClust")
@@ -79,11 +79,11 @@ frequency_polygon(fem)
 
 This is the main function of the `densr` package as it is used to ultimately create density histograms. It creates an object of class "hist_dens", which contains the data, histogram information (to later use inside the plot function), density values, and the particular method used for estimating the density.
 
-The 'type' argument consists of a character string denoting the valid options for different types of density estimation. `match.arg()` and the intelligible error messages included in the function additionally check that the user correctly supplied _one_ of the following.   If no type is specified, the default is used and otherwise execution is terminated:  
+The `type` argument consists of a character string denoting the valid options for different density estimations. `match.arg()` and the intelligible error messages included in the function additionally check that the user correctly supplied _one_ of the following.   If no type is specified, the default is used and otherwise execution is terminated:  
   "gaussian": Gaussian density estimation  
   "kde": Kernel density estimation  
   "fp": Frequency polygon density estimation  
-The default type is specified as the first entry in the character string.
+The default type is specified as the first entry in the character string (i.e. "gaussian").
 
 We illustrate this function's default settings with a toy example that generates random values from a standard normal distribution, using the default `rnorm()` arguments of mean 0 and standard deviation 1. Recall that `create_hist_dens(x)` will be equivalent to `create_hist_dens(x, type = "gaussian")` by default.
 
@@ -102,7 +102,7 @@ data1 <- create_hist_dens(faithful$waiting, type = "kde", kernel = "rectangular"
 data2 <- create_hist_dens(faithful$waiting, type = "kde", kernel = "biweight")
 ```
 
-We can pass additional arguments to the inner `hist()` function. Below, one histogram has the number of intervals chosen by Scott's Rule, and the other has a sequence of breaks defined for it that spans the range of the data.
+We can also pass additional arguments to the inner `hist()` function. Below, one histogram has the number of intervals chosen by Scott's Rule, and the other has a sequence of breaks defined for it that spans the range of the data.
 
 ```{r}
 data(olive, package = "IMIFA")
@@ -114,32 +114,32 @@ seq <- create_hist_dens(olive$linolenic, type = "fp", breaks = seq(0, 80, by = 2
 
 To visualize the histograms with a density overlayed, you can use the dedicated plotting function. The `plot()` method provided simply plots the created objects of class "hist_dens". Taking each data from above, a plot can be created by typing `plot()` with the data as its argument.
 
-```{r}
+```{r stdnorm, fig.cap = "Gaussian parametric density estimation overlayed to random draws from a standard normal distribution"}
 plot(x, col = "thistle", main = "Standard Normal Distribution")
 ```
 
-The assumed parametric form for this set of independent and identically distributed observations is correct.
+Figure \@ref(fig:stdnorm) indicates that the assumed parametric form for this set of independent and identically distributed observations is correct.
 
 Let's see the impact that changing the kernel has on the density:
 
-```{r}
+```{r fig.cap = "Nonparametric density estimation of waiting times between eruptions of the 'Old Faithful' geyser using a rectangular and biweight kernel respectively"}
 par(mfrow = c(1,2))
 plot(data1, lwd = 2, main = "", xlab = "Waiting Time (in minutes)")
 plot(data2, lwd = 2, lty = 3, main = "", xlab = "Waiting Time (in minutes)")
-legend("topleft", legend = c("rectangular", "biweight"), lty = c(1,3))
+legend("topleft", legend = c("rectangular", "biweight"), lty = c(1,3), lwd = c(2,2))
 ```
 
-Next, we compare the two plots of the differing histograms side by side. 
+Next, we compare the two histograms of the same data with different breaks side by side. 
 
-```{r}
+```{r fig.cap = "Frequency Polygon density estimation of alpha-linolenic acid content in olives superimposed to histograms with varying breaks"}
 par(mfrow = c(1,2))
-plot(scott, main = "", border = "darkorchid2", xlab = "Linolenic acid content in olives")
-plot(seq, main = "", border = "dodgerblue2", xlab = "Linolenic acid content in olives")
-mtext("Density histograms with Scott's breaks (purple) and Sequence breaks (blue)", side = 1, line = -21, outer = TRUE)
+suppressWarnings(plot(scott, main = "", border = "darkorchid2", xlab = "Linolenic acid content (%)"))
+suppressWarnings(plot(seq, main = "", border = "dodgerblue2", xlab = "Linolenic acid content (%)"))
+mtext("Density histograms with Scott's breaks (purple) and Sequence breaks (blue)", side = 1, line = -23, outer = TRUE)
 ```
 
 ### Conclusion
 
-The `densr` package is a useful tool. It smoothly combines different methods for estimating density into your histograms. Through trialing and testing various kinds and settings, you can gain a deeper understanding of your data.
+The `densr` package is useful to smoothly combine different methods for estimating density into your histograms. Through trialing and testing various kinds and settings, you can gain a deeper understanding of your data.
 
 If you encounter any issues or have suggestions, please visit the [GitHub issues page](https://github.com/rachel-mc/densr/issues)

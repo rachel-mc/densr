@@ -9,23 +9,23 @@
 #' @param type A character string specifying the type of density estimation to
 #' be used. Options include either \code{"gaussian"} by default, \code{"kde"}, or
 #' \code{"fp"} for parametric normal, nonparametric kernel, or continuous
-#' density estimation.
+#' density estimation respectively.
 #' @param ... Additional named arguments to be passed through to \code{hist} or
 #' the density estimation functions.
 #'
-#' @return An list containing the histogram (\code{h}) and its components,
-#' density values (\code{d}), the type of density estimation used (\code{type}),
-#' the inputted data (\code{x}), and the class attributed to the object:
-#' \code{"hist_dens"}
+#' @return An list containing the inputted data (\code{x}), the histogram
+#' (\code{h}) and its components, density values (\code{d}), the type of
+#' density estimation used (\code{type}), and the class attributed to the
+#' object:\code{"hist_dens"}.
 #'
 #' @note This is a class constructor function. A separate dedicated
-#' \code{\link{plot}} function is provided for objects of class
-#' \code{"create_hist_dens"}.
+#' \code{\link{plot}} function is provided for \code{"create_hist_dens"}
+#' output.
 #'
 #' @seealso \code{\link[stats]{density}} for a complete list of additional
-#' kde-specific arguments that can be passed when \code{type = "kde"}
+#' kde-specific arguments that can be passed when \code{type = "kde"}.
 #'          \code{\link{frequency_polygon}} to create frequency polygon density
-#'          estimations when the type specified is \code{type = "fp"}
+#'          estimates when the type specified is \code{type = "fp"}.
 #'
 #' @family densr
 #'
@@ -51,7 +51,7 @@ create_hist_dens <- function(x,
   h <- suppressWarnings(graphics::hist(x, plot = FALSE, ...)) # don't want to return the density histogram yet
 
   d <- switch(type,
-              gaussian = stats::dnorm(x, mean(x), stats::sd(x)), # dnorm exists for parametric density
+              gaussian = stats::dnorm(x, mean(x), stats::sd(x), ...), # dnorm exists for parametric density
               kde = stats::density(x, ...),
               fp = frequency_polygon(x, ...))
 
